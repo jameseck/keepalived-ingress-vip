@@ -1,6 +1,6 @@
 image:
-  repository: janeczku/keepalived-ingress-vip
-  tag: v0.1.6
+  repository: ghcr.io/jameseck/keepalived-ingress-vip
+  tag: latest
   pullPolicy: IfNotPresent
 
 keepalived:
@@ -8,7 +8,7 @@ keepalived:
   authPassword:
   vrrpInterfaceName:
   vipInterfaceName:
-  vipAddressCidr: 
+  vipAddressCidr:
   virtualRouterId:
   vrrpNoPreempt: false
   # Default to the healthz endpoint of the NGINX Ingress Controller
@@ -22,7 +22,7 @@ keepalived:
   checkKubeApi: true
   checkKubeApiInterval: 5
   checkKubeApiFailAfter: 5
-  
+
 # Deployment or DaemonSet
 kind: Deployment
 

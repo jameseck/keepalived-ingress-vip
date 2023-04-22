@@ -8,10 +8,10 @@ ENV GOMPLATE_VERSION=v3.11.5 \
 
 ARG TARGETPLATFORM
 RUN case ${TARGETPLATFORM} in \
-         "linux/amd64")  TARGETARCH=amd64  ;; \
-         "linux/arm64")  TARGETARCH=arm64  ;; \
-         "linux/arm/v7") TARGETARCH=armhf  ;; \
-         "linux/arm/v6") TARGETARCH=armel  ;; \
+         "linux/amd64")  TARGETARCH=amd64 ; DUMBINIT_ARCH=x86_64  ;; \
+         "linux/arm64")  TARGETARCH=arm64 ; DUMBINIT_ARCH=aarch64 ;; \
+         "linux/arm/v7") TARGETARCH=armv7 ; DUMBINIT_ARCH=aarch64 ;; \
+         "linux/arm/v6") TARGETARCH=armv6 ; DUMBINIT_ARCH=aarch64 ;; \
     esac
 
 # Install keepalived
@@ -24,7 +24,7 @@ RUN curl -sL ${GOMPLATE_BASEURL}/${GOMPLATE_VERSION}/gomplate_linux-${TARGETARCH
   && chmod +x /bin/gomplate
 
 # Install dumb-init
-RUN curl -sL ${DUMBINIT_BASEURL}/${DUMBINIT_VERSION}/dumb-init_$(echo $DUMBINIT_VERSION | sed -e 's/^v//')_${TARGETARCH} --output /bin/dumb-init \
+RUN curl -sL ${DUMBINIT_BASEURL}/${DUMBINIT_VERSION}/dumb-init_$(echo $DUMBINIT_VERSION | sed -e 's/^v//')_${DUMBINIT_ARCH} --output /bin/dumb-init \
   && chmod +x /bin/dumb-init
 
 COPY keepalived.conf.tmpl /etc/keepalived/keepalived.conf.tmpl
