@@ -8,12 +8,10 @@ ENV GOMPLATE_VERSION=v3.11.5 \
 
 ARG TARGETPLATFORM
 RUN case ${TARGETPLATFORM} in \
-         "linux/x86-64") TARGETARCH=amd64  ;; \
          "linux/amd64")  TARGETARCH=amd64  ;; \
          "linux/arm64")  TARGETARCH=arm64  ;; \
          "linux/arm/v7") TARGETARCH=armhf  ;; \
          "linux/arm/v6") TARGETARCH=armel  ;; \
-         "linux/386")    TARGETARCH=i386   ;; \
     esac
 
 # Install keepalived
