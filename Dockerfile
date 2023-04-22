@@ -1,10 +1,10 @@
-FROM alpine:3.12.0
+FROM alpine:3.17
 
-ENV GOMPLATE_VERSION=v3.7.0 \
+ENV GOMPLATE_VERSION=v3.11.5 \
     GOMPLATE_BASEURL=https://github.com/hairyhenderson/gomplate/releases/download \
-    DUMBINIT_VERSION=v1.2.2 \
+    DUMBINIT_VERSION=v1.2.5 \
     DUMBINIT_BASEURL=https://github.com/Yelp/dumb-init/releases/download/ \
-    KEEPALIVED_VERSION=2.0.20-r0   
+    KEEPALIVED_VERSION=2.2.7-r2
 ARG TARGETARCH
 
 # Install keepalived
@@ -17,7 +17,7 @@ RUN curl -sL ${GOMPLATE_BASEURL}/${GOMPLATE_VERSION}/gomplate_linux-${TARGETARCH
   && chmod +x /bin/gomplate
 
 # Install dumb-init
-RUN curl -sL ${DUMBINIT_BASEURL}/${DUMBINIT_VERSION}/dumb-init_1.2.2_${TARGETARCH} --output /bin/dumb-init \
+RUN curl -sL ${DUMBINIT_BASEURL}/${DUMBINIT_VERSION}/dumb-init_$(echo $DUMBINIT_VERSION | sed -e 's/^v//')_${TARGETARCH} --output /bin/dumb-init \
   && chmod +x /bin/dumb-init
 
 COPY keepalived.conf.tmpl /etc/keepalived/keepalived.conf.tmpl
